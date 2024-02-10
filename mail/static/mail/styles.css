@@ -1,0 +1,51 @@
+/* CSS Styles for the emails on mailbox display */
+@keyframes hide-email {
+    0% {
+        opacity: 1;
+        transform: scale(1); 
+      }
+      50% {
+        opacity: 0.5; 
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 0; 
+        transform: scale(0.9); 
+      }
+}
+
+.email-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s; /* Smooth transition for background color change */
+    /* animation */
+    animation-name: hide-email;
+    animation-duration: 1s;
+    animation-play-state: paused;
+}
+
+.email-item p{
+    /* padding: 10px 5px; */
+    margin: 10px 5px;
+}
+
+.email-item.read {
+    background-color: #fff; /* Gray background for read emails */
+}
+
+.email-item.unread {
+    background-color: #f1f1f1; /* White background for unread emails */
+}
+
+.email-item:hover {
+    background-color: #e0e0e0; /* Light gray background on hover */
+}
+
+
+/* Additional CSS for textarea */
+textarea {
+    min-height: 400px;
+}

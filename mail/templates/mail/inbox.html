@@ -1,0 +1,63 @@
+{% extends "mail/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h2 id="user-email">{{ request.user.email }}</h2>
+    
+
+    <button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
+    <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
+    <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
+    <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
+    <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+    <hr>
+    
+    <!-- All the emails -->
+    <div id="emails-view">
+    </div>
+
+    <!-- Single mail page -->
+    <div id="email-view">
+        <h1 id="email-subject"></h1>
+        <p id="email-sender"></p>
+        <p id="email-timestamp"></p>
+        <hr>
+        <div id="email-body"></div>
+        <br>
+        <button id="reply-button" class="btn btn-primary btn-sm">Reply</button>
+    </div>
+
+    <!-- New email view -->
+    <div id="compose-view">
+        <h3>New Email</h3>
+
+        <form id="compose-form" >
+            {% csrf_token %}
+            <div class="form-group">
+                From: <input disabled class="form-control" value="{{ request.user.email }}">
+            </div>
+            <!-- We must send the email and the timestamp to backend -->
+            <input type="hidden" id="user-email" value="{{ request.user.email }}">
+            <input type="hidden" id="email-timestamp" value="{{ request.timestamp }}">
+
+            <div class="form-group">
+                To: <input id="compose-recipients" class="form-control">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="compose-subject" placeholder="Subject">
+            </div>
+            <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
+            
+            <!-- a hidden input field for indicating whether it's a reply. Updated later in the reply view function. -->
+            <input type="hidden" id="is-reply" name="is_reply" value="false">
+            
+
+            <input type="submit" class="btn btn-primary"/>
+        </form>
+        
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'mail/inbox.js' %}"></script>
+{% endblock %}
